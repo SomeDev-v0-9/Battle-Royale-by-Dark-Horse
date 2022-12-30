@@ -39,29 +39,46 @@ end
 
 function GetEngId(prefix, stage)
     local Engineers = Units["ENG"]
+
+    if stage == "T4" then
+        local prn = math.random(5) -- ~20%
+
+        --return Sera sacu id(~20% chance) or T3 eng id
+        return prn == 3 and 'XSL0301_engineer' or (prefix:upper() .. Engineers["T3"])
+    end
+
     return (prefix:upper() .. Engineers[stage:upper()])
 end
 
-function GetRandomSACUId()
-    local sacuList = { 'UEL0301_ras', 'UAL0301_ras', 'URL0301_ras', 'XSL0301_engineer', }
+function GetRasSacuId(prefix)
+
+    if not (prefix == "XS" or prefix == "XN") then
+        return (prefix:upper() .. "L0301_ras")
+    end
+    local sacuList = { 'UEL0301_ras', 'UAL0301_ras', 'URL0301_ras' }
     return sacuList[math.floor(Random() * table.getn(sacuList)) + 1]
 end
 
 function GetTransportId(prefix, stage)
     local Transports = Units["TRANSPORT"]
 
-    local function GetT2orT3transport(chance)
-        local prn = math.random(chance)
-        return prn == 2 and "XEA0306" or (prefix:upper() .. Transports["T2"])--XEA0306 - T3 UEF Transport
+    if not (stage == "T1") then
+        return (prefix:upper() .. Transports["T2"])
     end
+    return (prefix:upper() .. Transports[stage:upper()])
 
-    if stage == "T3" then
-        return GetT2orT3transport(5) -- ~20%
-    elseif stage == "T4" then
-        return GetT2orT3transport(3) -- ~33%
-    else
-        return (prefix:upper() .. Transports[stage:upper()])
-    end
+    --local function GetT2orT3transport(chance)
+    --    local prn = math.random(chance)
+    --    return prn == 2 and "XEA0306" or (prefix:upper() .. Transports["T2"])--XEA0306 - T3 UEF Transport
+    --end
+    --
+    --if stage == "T3" then
+    --    return GetT2orT3transport(5) -- ~20%
+    --elseif stage == "T4" then
+    --    return GetT2orT3transport(3) -- ~33%
+    --else
+    --    return (prefix:upper() .. Transports[stage:upper()])
+    --end
 end
 
 function GetPowerStorageId(prefix)
@@ -105,7 +122,7 @@ function GetUnitList(surface, stage, x, z)
     FillUnitList(GetMassStorageId, "mStorage")
     FillUnitList(GetEngId, "eng", stage)
     FillUnitList(GetTransportId, "trans", stage)
-    FillUnitList(GetRandomSACUId, "sacu")
+    FillUnitList(GetRasSacuId, "sacu")
 
     return result
 end

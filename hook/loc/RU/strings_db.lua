@@ -76,11 +76,11 @@ br_eco_packages_interval_values_medium_text = "Средне"
 br_eco_packages_interval_values_fast_text = "Быстро"
 br_eco_packages_interval_values_hyper_text = "Оч. быстро"
 
-br_packages_interval_values_off_help = "Отключает появление экономических юнитов на карте."
-br_packages_interval_values_slow_help = "Паки юнитов появляются каждые 60-120 секунд."
-br_packages_interval_values_medium_help = "Паки юнитов появляются каждые 40-80 секунд."
-br_packages_interval_values_fast_help = "Паки юнитов появляются каждые 20-40 секунд."
-br_packages_interval_values_hyper_help = "Паки юнитов появляются каждые 10-20 секунд."
+br_eco_packages_interval_values_off_help = "Отключает появление экономических юнитов на карте."
+br_eco_packages_interval_values_slow_help = "Паки юнитов появляются каждые 60-120 секунд."
+br_eco_packages_interval_values_medium_help = "Паки юнитов появляются каждые 40-80 секунд."
+br_eco_packages_interval_values_fast_help = "Паки юнитов появляются каждые 20-40 секунд."
+br_eco_packages_interval_values_hyper_help = "Паки юнитов появляются каждые 10-20 секунд."
 
 
 -- com beacon tech level keys
