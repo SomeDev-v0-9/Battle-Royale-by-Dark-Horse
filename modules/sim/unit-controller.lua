@@ -47,7 +47,7 @@ end
 function DamageOrDestroyStrandedUnitsThread(destructionTime)
 
     if destructionTime == 0 or destructionTime < 0 then
-        WARN("Destruction time = ".. destructionTime .. ". But must be greater than 0")
+        WARN("Destruction time = " .. destructionTime .. ". But must be greater than 0")
     end
 
     local BuffCalculate = import("/lua/sim/Buff.lua").BuffCalculate
@@ -72,7 +72,14 @@ function DamageOrDestroyStrandedUnitsThread(destructionTime)
 
         local function DoDamageOrKill(unit)
             local damage = CalcDamage(unit)
-            unit:OnDamage(nil, damage, {0, 0, 0}, 'OutOfMap')
+
+            -- Deal damage to the transporter's t3 UEF shield if it is enable
+            local target = "XEA0306"
+            if unit:GetUnitId():lower() == target:lower() and unit.MyShield:IsOn() then
+                unit.MyShield:OnDamage(nil, damage, { 0, 0, 0 }, 'OutOfMap')
+            end
+
+            unit:OnDamage(nil, damage, { 0, 0, 0 }, 'OutOfMap')
         end
 
         -- retrieve the brains

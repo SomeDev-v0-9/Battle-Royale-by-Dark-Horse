@@ -62,23 +62,18 @@ end
 function GetTransportId(prefix, stage)
     local Transports = Units["TRANSPORT"]
 
-    if not (stage == "T1") then
-        return (prefix:upper() .. Transports["T2"])
+    local function GetT2orT3transport(chance)
+        local prn = math.random(chance)
+        return prn == 2 and "XEA0306" or (prefix:upper() .. Transports["T2"])--XEA0306 - T3 UEF Transport
     end
-    return (prefix:upper() .. Transports[stage:upper()])
 
-    --local function GetT2orT3transport(chance)
-    --    local prn = math.random(chance)
-    --    return prn == 2 and "XEA0306" or (prefix:upper() .. Transports["T2"])--XEA0306 - T3 UEF Transport
-    --end
-    --
-    --if stage == "T3" then
-    --    return GetT2orT3transport(5) -- ~20%
-    --elseif stage == "T4" then
-    --    return GetT2orT3transport(3) -- ~33%
-    --else
-    --    return (prefix:upper() .. Transports[stage:upper()])
-    --end
+    if stage == "T3" then
+        return GetT2orT3transport(5) -- ~20%
+    elseif stage == "T4" then
+        return GetT2orT3transport(3) -- ~33%
+    else
+        return (prefix:upper() .. Transports[stage:upper()])
+    end
 end
 
 function GetPowerStorageId(prefix)
